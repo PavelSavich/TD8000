@@ -4,9 +4,7 @@ namespace TD.Map
     {
         none,
         island,
-        north,
-        center,
-        edge,
+        archipelago,
         northContinent
     };
 }

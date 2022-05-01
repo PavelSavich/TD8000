@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8a23c312be3ac3b4cbf38710d2cfe6ff
+guid: 4f20a6ac031ede440a96490da71c549a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6958950812443348255
-    second: HexWide_0
+      213: 5868094562757801808
+    second: HexFull_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 320
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -68,7 +68,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -80,7 +80,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -92,7 +92,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -130,7 +130,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HexWide_0
+      name: HexFull_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,8 +144,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e2f5ee2b17dc6f90800000000000000
-      internalID: -6958950812443348255
+      spriteID: 05774911ae8af6150800000000000000
+      internalID: 5868094562757801808
       vertices: []
       indices: 
       edges: []
@@ -153,7 +153,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0667fcb7a7e4f2f49b3c86d389a921fb
+    spriteID: 4bdac24285b373442b015c50c30711f0
     internalID: 0
     vertices: []
     indices: 

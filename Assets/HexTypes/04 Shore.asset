@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: MountainSnow
+  m_Name: 04 Shore
   m_EditorClassIdentifier: 
-  hexType: 8
-  hexSprite: {fileID: -4005109944552516805, guid: b23a224fb5cfd714a86ab0643e16639f, type: 3}
-  minTypeElevation: 6.5
-  maxTypeElevation: 10
+  hexType: 4
+  hexSprite: {fileID: -1841705093073922620, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.5

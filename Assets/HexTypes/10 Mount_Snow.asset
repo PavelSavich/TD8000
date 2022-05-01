@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: Desert
+  m_Name: 10 Mount_Snow
   m_EditorClassIdentifier: 
-  hexType: 3
-  hexSprite: {fileID: 130452656225014213, guid: 31bbd7b0db52bf54a85ed9869ea40315, type: 3}
-  minTypeElevation: 1.5
-  maxTypeElevation: 2
+  hexType: 10
+  hexSprite: {fileID: 8396338120738374355, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.95

@@ -149,7 +149,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetX() == randomXCenter && hex.GetY() == randomYCenter)
+                        if (hex.GetHexCoordinate().x == randomXCenter && hex.GetHexCoordinate().y == randomYCenter)
                         {
                             initialHex = hex;
                         }
@@ -169,7 +169,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetX() == randomXTop && hex.GetY() == area.GetEndPosition().y)
+                        if (hex.GetHexCoordinate().x == randomXTop && hex.GetHexCoordinate().y == area.GetEndPosition().y)
                         {
                             initialHex = hex;
                         }
@@ -183,7 +183,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetX() == randomXBottom && hex.GetY() == area.GetStartPosition().y)
+                        if (hex.GetHexCoordinate().x == randomXBottom && hex.GetHexCoordinate().y == area.GetStartPosition().y)
                         {
                             initialHex = hex;
                         }
@@ -197,7 +197,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetX() == area.GetEndPosition().x && hex.GetY() == randomYRight)
+                        if (hex.GetHexCoordinate().x == area.GetEndPosition().x && hex.GetHexCoordinate().y == randomYRight)
                         {
                             initialHex = hex;
                         }
@@ -210,7 +210,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetX() == area.GetStartPosition().x && hex.GetY() == randomYLeft)
+                        if (hex.GetHexCoordinate().x == area.GetStartPosition().x && hex.GetHexCoordinate().y == randomYLeft)
                         {
                             initialHex = hex;
                         }
@@ -224,6 +224,7 @@ namespace TD.Map
 
         static public float CalculateElevation(PatternType currentPattern, int horizontalSize, int verticalSize, int hexX, int hexY)
         {
+            float rawElevetion = 0;
             float elevation = 0;
 
             float xPeak = 0;
@@ -246,34 +247,39 @@ namespace TD.Map
                     xElevetion = (((hexX - xPeak) / 2) * ((hexX - xPeak) / 2) + xPeak);
                     yElevetion = (((hexY - yPeak) / 2) * ((hexY - yPeak) / 2) + yPeak);
 
-                    elevation = (10 * ((xPeak + yPeak) / 2)) / ((xElevetion + yElevetion) / 2);
+                    rawElevetion = (10 * ((xPeak + yPeak) / 2)) / ((xElevetion + yElevetion) / 2);
+
+                    elevation = Mathf.InverseLerp(0, 5, rawElevetion);
 
                     break;
 
-                case PatternType.north:
-                    break;
-                case PatternType.center:
-                    break;
-                case PatternType.edge:
+                case PatternType.archipelago:
+
+                    elevation = 0.31f;
+
                     break;
 
                 case PatternType.northContinent:
 
                     yPeak = verticalSize;
 
-                    if (hexY > (yPeak - (yPeak/5)))
+                    int rnd = Random.Range(Mathf.RoundToInt(-yPeak/15), Mathf.RoundToInt(yPeak /15));
+
+                    if (hexY+rnd > (yPeak - (yPeak/5)))
                     {
                         yElevetion = (((hexY - yPeak) / 2) * ((hexY - yPeak) / 2) + yPeak);
-                        elevation = (10*yPeak) / (yElevetion);
+                        rawElevetion = (10*yPeak) / (yElevetion);
+                        elevation = Mathf.InverseLerp(0, 5, rawElevetion) + 0.3f;
                     }
-                    if ((hexY > yPeak/10) && (hexY < (yPeak - (yPeak /5))))
+                    else if ((hexY+rnd > yPeak/10) && (hexY < (yPeak - (yPeak /5))))
                     {
                         yElevetion = ((hexY / 2) * (hexY / 2) + yPeak);
-                        elevation = (10 * yPeak) / yElevetion;
+                        rawElevetion = (10 * yPeak) / yElevetion;
+                        elevation = Mathf.InverseLerp(0, 5, rawElevetion);
                     }
-                    if (hexY <= yPeak/10)
+                    else if (hexY+rnd <= yPeak/10)
                     {
-                        elevation = -1;
+                        elevation = -0.85f;
                     }
 
 
@@ -281,6 +287,71 @@ namespace TD.Map
             }
 
             return elevation;
+        }
+
+        public static float[,] GenerateNoiseMap(int horizontalSize, int verticalSize, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
+        {
+            float[,] noiseMap = new float[horizontalSize, verticalSize];
+
+            System.Random prng = new System.Random(seed);
+            Vector2[] octaveOffsets = new Vector2[octaves];
+
+            for (int octave = 0; octave < octaves; octave++)
+            {
+                float offsetX = prng.Next(-100000, 100000) + offset.x;
+                float offsetY = prng.Next(-100000, 100000) + offset.y;
+                octaveOffsets[octave] = new Vector2(offsetX, offsetY);
+            }
+
+            float maxNoiseHeight = float.MinValue;
+            float minNoiseHeight = float.MaxValue;
+
+            float halfWidth = horizontalSize / 2f;
+            float halfHeight = verticalSize / 2f;
+
+
+            for (int yCoordinate = 0; yCoordinate < verticalSize; yCoordinate++)
+            {
+                for (int xCoordinate = 0; xCoordinate < horizontalSize; xCoordinate++)
+                {
+
+                    float amplitude = 1;
+                    float frequency = 1;
+                    float noiseHeight = 0;
+
+                    for (int octave = 0; octave < octaves; octave++)
+                    {
+                        float xCurrent = (xCoordinate - halfWidth) / scale * frequency + octaveOffsets[octave].x;
+                        float yCurrent = (yCoordinate - halfHeight) / scale * frequency + octaveOffsets[octave].y;
+
+                        float perlinValue = Mathf.PerlinNoise(xCurrent, yCurrent) * 2 - 1;
+                        noiseHeight += perlinValue * amplitude;
+
+                        amplitude *= persistance;
+                        frequency *= lacunarity;
+                    }
+
+                    if (noiseHeight > maxNoiseHeight)
+                    {
+                        maxNoiseHeight = noiseHeight;
+                    }
+                    else if (noiseHeight < minNoiseHeight)
+                    {
+                        minNoiseHeight = noiseHeight;
+                    }
+                    noiseMap[xCoordinate, yCoordinate] = noiseHeight;
+                }
+            }
+
+            for (int yCoordinate = 0; yCoordinate < verticalSize; yCoordinate++)
+            {
+                for (int xCoordinate = 0; xCoordinate < horizontalSize; xCoordinate++)
+                {
+                    noiseMap[xCoordinate, yCoordinate] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[xCoordinate, yCoordinate]);
+                }
+            }
+
+            return noiseMap;
         }
     }
 }

@@ -8,52 +8,52 @@ namespace TD.Map
     public class Hex : MonoBehaviour
     {
         [Header("Hex Coordinates:")]
-        [Tooltip("The relative X position of the current hex on the map.")]
-        [SerializeField] private int xCoordinate = 0;
-
-        [Tooltip("The relative Z position of the current hex on the map.")]
-        [SerializeField] private int yCoordinate = 0;
+        [Tooltip("The relative X and Z positions of the current hex on the hex map.")]
+        [SerializeField] private Vector2Int hexCoordinate = new Vector2Int();
 
         [Tooltip("The relative height of the current hex on the map.")]
-        [SerializeField] private float hexElevation = 0;
+        [Range(0,1)][SerializeField] private float hexPatternElevation = 0;
+        [Range(0,1)][SerializeField] private float hexNoiseElevation = 0;
+        [Range(0, 1)][SerializeField] private float hexElevation = 0;
+
+        [SerializeField] private bool hasRiverStream = false;
+        [SerializeField] private RiverStream riverStream = null;
 
         [SerializeField] private List<Hex> neighbourHexes = new List<Hex>();
-
-        [SerializeField] private Text coordinatesText = null;
 
         [SerializeField] private HexAttributes hexAttributes = null;
 
         [SerializeField] private SpriteRenderer hexSpriteRenderer = null;
 
-        public void SetX(int xToSet)
+        public void SetHexCoordinates(Vector2Int coordinatesToSet)
         {
-            xCoordinate = xToSet;
+            hexCoordinate = coordinatesToSet;
         }
 
-        public void SetY(int yToSet)
+
+        public void SetHexPatternElevation(float elevationToSet)
         {
-            yCoordinate = yToSet;
+            hexPatternElevation = elevationToSet;
         }
 
-        public void SetElevation(float elevationToSet)
+        public void SetHexNoiseElevation(float elevationToSet)
         {
-            hexElevation = elevationToSet;
+            hexNoiseElevation = elevationToSet;
+        }
+
+        public void SetElevation()
+        {
+            hexElevation = (hexPatternElevation + hexNoiseElevation)/2;
         }
 
         public void SetHexName(string hexName)
         {
             name =  $"Hex {hexName}";
-            coordinatesText.text = hexName;
         }
 
-        public int GetX()
+        public Vector2Int GetHexCoordinate()
         {
-            return xCoordinate;
-        }
-
-        public int GetY()
-        {
-            return yCoordinate;
+            return hexCoordinate;
         }
 
         public float GetElevation()
@@ -89,6 +89,16 @@ namespace TD.Map
         public void SetHexSprite()
         {
             hexSpriteRenderer.sprite = hexAttributes.GetHexSprite();
+        }
+
+        public bool GetHasRiverStream()
+        {
+            return hasRiverStream;
+        }
+
+        public void SetRiverStream(bool haveStream)
+        {
+            hasRiverStream = haveStream;
         }
     }
 }

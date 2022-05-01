@@ -11,8 +11,7 @@ namespace TD.Map
         [SerializeField] private Sprite hexSprite; //TODO: 1. Make it an array;
 
         [Header("Elevation")]
-        [Range(-1,10)][SerializeField] private float minTypeElevation = 0f;
-        [Range(-1, 10)] [SerializeField] private float maxTypeElevation = 0f;
+        [Range(0,1)][SerializeField] private float typeElevation = 0f;
 
         public HexType GetHexType()
         {
@@ -24,14 +23,9 @@ namespace TD.Map
             return hexSprite;
         }
 
-        public float GetMinTypeElevation()
+        public float GetTypeElevation()
         {
-            return minTypeElevation;
-        }
-
-        public float GetMaxTypeElevation()
-        {
-            return maxTypeElevation;
+            return typeElevation;
         }
     }
 }

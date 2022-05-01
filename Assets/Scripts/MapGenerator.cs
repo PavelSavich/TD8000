@@ -17,11 +17,22 @@ namespace TD.Map
         [SerializeField] Hex hexPrefab = null;
         [SerializeField] float horizontalOffset = -0.13f;
         [SerializeField] float verticalOffset = -0.245f;
-        [SerializeField] List<Hex> allHexes = new List<Hex>();
+        [SerializeField] HexMap hexMap = null;
+
+        [Tooltip("River Prefab")]
+        [SerializeField] RiverStream riverStreamPrefab = null;
+        [SerializeField] HexAttributes minimalHighGroundType = null;
+        [SerializeField] List<Hex> riverBeginingsList = new List<Hex>();
+        [SerializeField] HexAttributes waterType = null;
+        [Range(0f,0.1f)][SerializeField] float relativeRiverAmount = 0.1f;
+        [SerializeField] int initialFlowForce = 100;
+        [Range(0.9f,0.99f)][SerializeField] float flowReduction = 0.98f;
+        [Range(0.25f, 0.75f)][SerializeField] float flowDevision = 0.5f;
 
         [Header("Map Attributes:")]
-        [Range(12,300)][SerializeField] public int horizontalSize = 12;
-        [Range(12, 300)][SerializeField] public int verticalSize = 12;
+        [Range(12, 300)][SerializeField] private int horizontalMapSize = 12;
+        [Range(12, 300)][SerializeField] private int verticalMapSize = 12;
+        public Vector2Int mapSize = new Vector2Int(12,12);
 
         [Header("Map Pattern:")]
         [SerializeField] PatternAttributes[] availiblePatterns;
@@ -29,34 +40,63 @@ namespace TD.Map
         [SerializeField] PatternType currentPattern = 0;
         [SerializeField] public List<AreaInMap> cardinalsInMap = new List<AreaInMap>();
 
+        [Header("Noise")]
+        [Range(0.0001f, 50f)] [SerializeField] float noiseScale = 0.0001f;
+        [Range(0,25)][SerializeField] int octaves = 0;
+        [Range(0f, 1f)][SerializeField] float persistance = 0f;
+        [Range(1f,25f)][SerializeField] float lacunarity = 1f;
+        [SerializeField] int seed = 0;
+        [SerializeField] bool randomSeed = false;
+        [SerializeField] Vector2 offset = new Vector2();
+        [SerializeField] bool randomOffset = false;
+
         [Header("Map Hex Types:")]
         [SerializeField] HexAttributes[] availibleHexTypes;
 
         void Start()
         {
-            //var time = Time.realtimeSinceStartup;
+            var p = new Assets.Scripts.Profiler("CreateMapParent");
+
             CreateMapParent();
 
+            p.measureDeltaTime("PlaceHexes");
 
-            PlaceHexes();
+            BuildHexMap();
+
+            p.measureDeltaTime("SetHexNeighbours");
+
             SetHexNeighbours();
 
+            p.measureDeltaTime("SetupMapPattern");
 
             SetupMapPattern();
-            BuildPatternWithMathFunction();
 
-            Normalize();
+            p.measureDeltaTime("BuildPatternElevationMap");
+
+            BuildPatternElevationMap();
+
+            p.measureDeltaTime("BuildNoiseElevationMap");
+
+            BuildNoiseElevationMap();
+
+            p.measureDeltaTime("SetHexElevationMap");
+
+            SetHexElevationMap();
+
+            p.measureDeltaTime("SetHexAttributes");
+
+            SetHexAttributes();
+
+            p.measureDeltaTime("SetHexSprites");
+
             SetHexSprites();
 
-            //print($"CreateMapParent {(Time.realtimeSinceStartup - time).ToString("f6")}");
+            BuildRiverBeginingsList();
+
+            GenerateRivers();
 
             //SetupAreas();
             //DevideAllHexesToCardinalAreas();
-        }
-
-        public List<Hex> GetAllHexes()
-        {
-            return allHexes;
         }
 
         public void CreateMapParent()
@@ -65,100 +105,81 @@ namespace TD.Map
             //TODO: Name the map
         }
 
-        public void PlaceHexes()
+        public void BuildHexMap()
         {
-            for (int xPosition = 1; xPosition <= horizontalSize; xPosition ++)
+            mapSize.x = horizontalMapSize;
+            mapSize.y = verticalMapSize;
+
+            hexMap = new HexMap(mapSize);
+
+            for (int xPosition = 0; xPosition < mapSize.x; xPosition ++)
             {
-                for (int yPosition = 1; yPosition <= verticalSize; yPosition++)
+                for (int yPosition = 0; yPosition < mapSize.y; yPosition++)
                 {
-                    Hex hex = Instantiate(hexPrefab, new Vector3(xPosition*transform.localScale.x, 0, yPosition*transform.localScale.y), hexPrefab.transform.rotation, mapParent.transform);
-                    hex.SetX(xPosition);
-                    hex.SetY(yPosition);
+                    Hex hex = Instantiate(hexPrefab, new Vector3(xPosition*transform.localScale.x,
+                                                                 0,
+                                                                 yPosition*transform.localScale.y),
+                                                                 hexPrefab.transform.rotation, mapParent.transform);
+
+                    hex.SetHexCoordinates(new Vector2Int(xPosition,yPosition));
 
                     hex.SetHexName($"{xPosition},{yPosition}");
 
                     FixPosition(hex);
 
-                    allHexes.Add(hex);
+                    hexMap.SetHexToMap(hex);
                 }
             }
         }
 
         private void FixPosition(Hex hex)
         {
-            if (hex.GetY()%2 != 0)
+
+            if (hex.GetHexCoordinate().y%2 != 0)
             {
-                hex.transform.position = new Vector3(hex.transform.position.x + (hex.GetX() * horizontalOffset),
+                hex.transform.position = new Vector3(hex.transform.position.x + (hex.GetHexCoordinate().x * horizontalOffset),
                                                      0,
-                                                     hex.transform.position.z + hex.GetY() * verticalOffset);
+                                                     hex.transform.position.z + hex.GetHexCoordinate().y * verticalOffset);
             }
             else
             {
-                hex.transform.position = new Vector3(hex.transform.position.x + ((hex.transform.localScale.x + horizontalOffset)/2) + (hex.GetX() * horizontalOffset),
+                hex.transform.position = new Vector3(hex.transform.position.x + ((hex.transform.localScale.x + horizontalOffset)/2) + (hex.GetHexCoordinate().x * horizontalOffset),
                                                      0,
-                                                     hex.transform.position.z + hex.GetY() * verticalOffset);
+                                                     hex.transform.position.z + hex.GetHexCoordinate().y * verticalOffset);
             }
 
         }
 
         public void SetHexNeighbours()
         {
-            foreach (Hex hex in allHexes)
+            int dirLength = System.Enum.GetValues(typeof(Direction)).Length;
+
+            foreach (Hex hex in hexMap.GetHexMap())
             {
-                hex.SetNeighbourHexes(FindNeighbours(hex));
+                Direction currentDirection = 0;
+                List<Hex> hexNeighbours = new List<Hex>();
+
+                for (int dir = 0; dir < dirLength; dir++)
+                {
+                    currentDirection = (Direction)dir;
+
+                    Hex neighbour = hexMap.GetNeighbour(hex.GetHexCoordinate(), currentDirection, mapSize);
+
+                    if (neighbour != null)
+                    {
+                        hexNeighbours.Add(neighbour);
+
+                    }
+
+                }
+
+                hex.SetNeighbourHexes(hexNeighbours);
             }
         }
-
-        public List<Hex> FindNeighbours(Hex hex)
-        {
-            List<Hex> hexNeighbours = new List<Hex>();
-
-            if (hex.GetY() % 2 == 0) // EVEN ROW (Offset Row)
-            {
-                foreach (Hex hexInMap in allHexes)
-                {
-                    if ((hexInMap.GetX() == hex.GetX() + 1) && (hexInMap.GetY() == hex.GetY()) ||
-                        (hexInMap.GetX() == hex.GetX() + 1) && (hexInMap.GetY() == hex.GetY() - 1) ||
-                        (hexInMap.GetX() == hex.GetX()) && (hexInMap.GetY() == hex.GetY() - 1) ||
-                        (hexInMap.GetX() == hex.GetX() - 1) && (hexInMap.GetY() == hex.GetY()) ||
-                        (hexInMap.GetX() == hex.GetX()) && (hexInMap.GetY() == hex.GetY() + 1) ||
-                        (hexInMap.GetX() == hex.GetX() + 1) && (hexInMap.GetY() == hex.GetY() + 1)
-                        )
-                    {
-                        if (!hexNeighbours.Contains(hexInMap))
-                        {
-                            hexNeighbours.Add(hexInMap);
-                        }
-                    }
-                }
-            }
-            else if (hex.GetY() % 2 != 0) // ODD ROW
-            {
-                foreach (Hex hexInMap in allHexes)
-                {
-                    if ((hexInMap.GetX() == hex.GetX() + 1) && (hexInMap.GetY() == hex.GetY()) ||
-                        (hexInMap.GetX() == hex.GetX()) && (hexInMap.GetY() == hex.GetY() - 1) ||
-                        (hexInMap.GetX() == hex.GetX() - 1) && (hexInMap.GetY() == hex.GetY() - 1) ||
-                        (hexInMap.GetX() == hex.GetX() - 1) && (hexInMap.GetY() == hex.GetY()) ||
-                        (hexInMap.GetX() == hex.GetX() - 1) && (hexInMap.GetY() == hex.GetY() + 1) ||
-                        (hexInMap.GetX() == hex.GetX()) && (hexInMap.GetY() == hex.GetY() + 1)
-                        )
-                    {
-                        if (!hexNeighbours.Contains(hexInMap))
-                        {
-                            hexNeighbours.Add(hexInMap);
-                        }
-                    }
-                }
-            }
-
-            return hexNeighbours;
-        }
-
-
 
         private void SetupMapPattern()
         {
+
             if (currentPattern == PatternType.none)
             {
                 Debug.LogError("Pattern is Missing");
@@ -177,42 +198,164 @@ namespace TD.Map
             if (patternAttributes == null) { return; }
         }
 
-        private void BuildPatternWithMathFunction()
+        private void BuildPatternElevationMap()
         {
-            foreach (Hex hex in allHexes)
+            foreach (Hex hex in hexMap.GetHexMap())
             {
-                hex.SetElevation(MapCalculator.CalculateElevation(currentPattern,horizontalSize,verticalSize,hex.GetX(),hex.GetY()));
-
-                List<HexAttributes> potentialAttributesForHex = new List<HexAttributes>();
-
-                foreach (HexAttributes hexType in availibleHexTypes)
-                {
-                    float noiseElevation = Random.Range(hexType.GetMinTypeElevation(), hexType.GetMaxTypeElevation());
-
-                    if ((hex.GetElevation() + noiseElevation) / 2 >= hexType.GetMinTypeElevation() && (hex.GetElevation() + noiseElevation) / 2 <= hexType.GetMaxTypeElevation())
-                    {
-                        potentialAttributesForHex.Add(hexType);
-                    }
-                }
-
-                hex.SetHexAttributes(potentialAttributesForHex[Random.Range(0 ,potentialAttributesForHex.Count)]);
-                potentialAttributesForHex.Clear();
+                hex.SetHexPatternElevation(MapCalculator.CalculateElevation(currentPattern,mapSize.x,mapSize.y,hex.GetHexCoordinate().x, hex.GetHexCoordinate().y));
             }
         }
 
-        private void Normalize()
+        private void BuildNoiseElevationMap()
         {
+            if (randomSeed)
+            {
+                seed = Random.Range(int.MinValue,int.MaxValue); 
+            }
 
+            if (randomOffset)
+            {
+                offset = new Vector2(Random.Range(-mapSize.x,mapSize.x),Random.Range(-mapSize.y,mapSize.y));
+            }
+
+            float[,] noiseMap = MapCalculator.GenerateNoiseMap(mapSize.x, mapSize.y, seed, noiseScale, octaves, persistance, lacunarity, offset);
+
+            foreach (Hex hex in hexMap.GetHexMap())
+            {
+                hex.SetHexNoiseElevation(noiseMap[hex.GetHexCoordinate().x, hex.GetHexCoordinate().y]);
+            }
+        }
+
+        private void SetHexElevationMap()
+        {
+            foreach (Hex hex in hexMap.GetHexMap())
+            {
+                hex.SetElevation();
+            }
+        }
+
+        private void SetHexAttributes()
+        {
+            foreach(Hex hex in hexMap.GetHexMap())
+            {
+                foreach (HexAttributes hexType in availibleHexTypes)
+                {
+                    if (hex.GetElevation() <= hexType.GetTypeElevation())
+                    {
+                        hex.SetHexAttributes(hexType);
+                        break;
+                    }
+                }
+            }
         }
 
         private void SetHexSprites()
         {
-            foreach (Hex hex in allHexes)
+            foreach (Hex hex in hexMap.GetHexMap())
             {
-                if (hex.GetHexAttributes() != null)
+                hex.SetHexSprite();
+            }
+        }
+
+        private void SetBlackAndWhiteHeightMap()
+        {
+            foreach (Hex hex in hexMap.GetHexMap())
+            {
+                hex.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1) * hex.GetElevation();
+            }
+        }
+
+        private void BuildRiverBeginingsList()
+        {
+            List<Hex> highGroundList = new List<Hex>();
+
+
+            foreach (Hex hex in hexMap.GetHexMap())
+            {
+                if (hex.GetElevation() >= minimalHighGroundType.GetTypeElevation())
                 {
-                    hex.SetHexSprite();
+                    highGroundList.Add(hex);
                 }
+            }
+
+            for (int randomHexCount = 0; randomHexCount < Mathf.RoundToInt(highGroundList.Count* relativeRiverAmount); randomHexCount++)
+            {
+                int randomHexIndex = Random.Range(0, highGroundList.Count);
+
+                if (riverBeginingsList.Contains(highGroundList[randomHexIndex]))
+                {
+                    randomHexCount--;
+                }
+                else
+                {
+                    riverBeginingsList.Add(highGroundList[randomHexIndex]);
+                }
+            }
+        }
+
+        private void GenerateRivers()
+        {
+            foreach (Hex hex in riverBeginingsList)
+            {
+                hex.GetComponentInChildren<SpriteRenderer>().color = new Color(0,1,0) * hex.GetElevation();
+
+                GenerateOneRiver(hex, 0, initialFlowForce);
+            }
+        }
+
+        private List<Hex> FindLowerNieghbours(Hex hex)
+        {
+            float currentMaxElevation = hex.GetElevation();
+
+            List<Hex> lowestNeighbours = new List<Hex>();
+
+            foreach (Hex neighbour in hex.GetNeighbourHexes())
+            {
+                if (neighbour.GetElevation() < currentMaxElevation)
+                {
+                    if (neighbour.GetHasRiverStream())
+                    {
+                        continue;
+                    }
+
+                    lowestNeighbours.Add(neighbour);
+                }
+            }
+
+            lowestNeighbours.Sort((a, b) => a.GetElevation().CompareTo(b.GetElevation()));
+
+            return lowestNeighbours;
+        }
+
+        private void GenerateOneRiver(Hex hex, int step, float flowForce)
+        {
+            if (hex.GetElevation() <= waterType.GetTypeElevation())
+            {
+                return;
+            }
+
+            List<Hex> lowestNeighbours = FindLowerNieghbours(hex);
+
+            hex.SetRiverStream(true);
+
+            foreach (Hex neighbour in lowestNeighbours)
+            {
+                int roll = Random.Range(step, initialFlowForce);
+
+                if (roll >= flowForce)
+                {
+                    continue;
+                }
+
+                float delta = flowForce * flowReduction;
+                flowForce *= flowDevision;
+
+                RiverStream stream = Instantiate(riverStreamPrefab, hex.transform.position, hex.transform.rotation, hex.transform);
+
+                stream.transform.LookAt(neighbour.transform.position, Vector3.up);
+                stream.transform.Rotate(new Vector3(0, 270, 0));
+
+                GenerateOneRiver(neighbour, step+1, delta);
             }
         }
 
@@ -220,8 +363,8 @@ namespace TD.Map
         {
             foreach (AreaInMap area in cardinalsInMap)
             {
-                area.SetStartPosition(MapCalculator.CalculteCardinalStartPositions(area.GetCardinalArea(), horizontalSize, verticalSize));
-                area.SetEndPosition(MapCalculator.CalculteCardinalEndPositions(area.GetCardinalArea(), horizontalSize, verticalSize));
+                area.SetStartPosition(MapCalculator.CalculteCardinalStartPositions(area.GetCardinalArea(), mapSize.x, mapSize.y));
+                area.SetEndPosition(MapCalculator.CalculteCardinalEndPositions(area.GetCardinalArea(), mapSize.x, mapSize.y));
             }
         }
 
@@ -229,12 +372,12 @@ namespace TD.Map
         {
             foreach (AreaInMap area in cardinalsInMap)
             {
-                foreach (Hex hex in allHexes)
+                foreach (Hex hex in hexMap.GetHexMap())
                 {
-                    if ((hex.GetX() >= area.GetStartPosition().x) &&
-                        (hex.GetX() <= area.GetEndPosition().x) &&
-                        (hex.GetY() >= area.GetStartPosition().y) &&
-                        (hex.GetY() <= area.GetEndPosition().y))
+                    if ((hex.GetHexCoordinate().x >= area.GetStartPosition().x) &&
+                        (hex.GetHexCoordinate().x <= area.GetEndPosition().x) &&
+                        (hex.GetHexCoordinate().y >= area.GetStartPosition().y) &&
+                        (hex.GetHexCoordinate().y <= area.GetEndPosition().y))
                     {
                         area.AddToHexList(hex);
                     }

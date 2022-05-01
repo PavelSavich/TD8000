@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: Plain
+  m_Name: 07 Hills_Low
   m_EditorClassIdentifier: 
-  hexType: 2
-  hexSprite: {fileID: 2387028658795720549, guid: 306416e707d5b834b9279f70466fdece, type: 3}
-  minTypeElevation: 2
-  maxTypeElevation: 3
+  hexType: 7
+  hexSprite: {fileID: 7797306834796990322, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.75

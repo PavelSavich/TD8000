@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: Mountain
+  m_Name: 00 Abyss_Deep
   m_EditorClassIdentifier: 
-  hexType: 6
-  hexSprite: {fileID: 619676782796928336, guid: feee166c07ce236488f56704ad5ca4b5, type: 3}
-  minTypeElevation: 3
-  maxTypeElevation: 5
+  hexType: 0
+  hexSprite: {fileID: 2870350380090401682, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0

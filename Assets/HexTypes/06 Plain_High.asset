@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: Water
+  m_Name: 06 Plain_High
   m_EditorClassIdentifier: 
-  hexType: 1
-  hexSprite: {fileID: 6049605792901559095, guid: f2a5e6efec403f04f8d144e4b2ccf14b, type: 3}
-  minTypeElevation: 0
-  maxTypeElevation: 2
+  hexType: 6
+  hexSprite: {fileID: -7598213722544793398, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.65

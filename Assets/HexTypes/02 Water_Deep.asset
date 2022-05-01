@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: Abyss
+  m_Name: 02 Water_Deep
   m_EditorClassIdentifier: 
-  hexType: 4
-  hexSprite: {fileID: -5931932364317517272, guid: 8dc1ecde0aebf4042afe0f2152cc12ca, type: 3}
-  minTypeElevation: -1
-  maxTypeElevation: -1
+  hexType: 2
+  hexSprite: {fileID: 8466054177414735201, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.35

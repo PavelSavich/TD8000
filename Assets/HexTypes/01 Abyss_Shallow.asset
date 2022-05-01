@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: ForestSnow
+  m_Name: 01 Abyss_Shallow
   m_EditorClassIdentifier: 
-  hexType: 9
-  hexSprite: {fileID: -2480707982212670082, guid: 259cc926fefcd454a85d758b822d0586, type: 3}
-  minTypeElevation: 5.5
-  maxTypeElevation: 7
+  hexType: 1
+  hexSprite: {fileID: -8612613340598353520, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.01

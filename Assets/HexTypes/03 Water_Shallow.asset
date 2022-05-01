@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f643eb368b1254085d6d3d4b57a170, type: 3}
-  m_Name: Forest
+  m_Name: 03 Water_Shallow
   m_EditorClassIdentifier: 
-  hexType: 5
-  hexSprite: {fileID: 9085546173938197295, guid: bbc6a2f2e98d9d945ad32d37d8b689fe, type: 3}
-  minTypeElevation: 2
-  maxTypeElevation: 3.5
+  hexType: 3
+  hexSprite: {fileID: 8969590705273672774, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  typeElevation: 0.45

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -156,12 +156,20 @@ MonoBehaviour:
   hexPrefab: {fileID: 714015677998908673, guid: 943e484cb075d4a4fba87b49840f3caa, type: 3}
   horizontalOffset: -0.14
   verticalOffset: -0.26
-  allHexes: []
-  horizontalSize: 83
-  verticalSize: 84
+  riverStreamPrefab: {fileID: 7499674828881056806, guid: 23d8a11c8a7160b4494d8d3a75316756, type: 3}
+  minimalHighGroundType: {fileID: 11400000, guid: c6b99fa3723ecfc49a5b3db5c2aa89b4, type: 2}
+  riverBeginingsList: []
+  waterType: {fileID: 11400000, guid: 54a4df8368d239e4d911fe271cc89691, type: 2}
+  relativeRiverAmount: 0.1
+  initialFlowForce: 100
+  flowReduction: 0.98
+  flowDevision: 0.375
+  horizontalMapSize: 100
+  verticalMapSize: 100
+  mapSize: {x: 12, y: 12}
   availiblePatterns:
   - {fileID: 11400000, guid: 1096b600e2df69642aa84826e9710c85, type: 2}
-  currentPattern: 5
+  currentPattern: 1
   cardinalsInMap:
   - cardinalArea: 0
     startPostion: {x: 0, y: 0}
@@ -203,14 +211,24 @@ MonoBehaviour:
     startPostion: {x: 0, y: 0}
     endPostion: {x: 0, y: 0}
     hexesInArea: []
+  noiseScale: 25
+  octaves: 5
+  persistance: 0.5
+  lacunarity: 2
+  seed: 0
+  randomSeed: 1
+  offset: {x: 0, y: 0}
+  randomOffset: 1
   availibleHexTypes:
   - {fileID: 11400000, guid: 8e1e5ecba4ec8a44f92e813b800860d6, type: 2}
+  - {fileID: 11400000, guid: 0ea93df330c7a184586ef71c9d148cf8, type: 2}
   - {fileID: 11400000, guid: d66acd1cb487afa458a39c4182d75bb0, type: 2}
+  - {fileID: 11400000, guid: 54a4df8368d239e4d911fe271cc89691, type: 2}
   - {fileID: 11400000, guid: 0b37bac8a02100741b2da85c816b9ee5, type: 2}
   - {fileID: 11400000, guid: 6d58f5989da050a4593495fdc27554c2, type: 2}
+  - {fileID: 11400000, guid: 3328611d744c1374490c127dac9b0cbb, type: 2}
   - {fileID: 11400000, guid: c6b99fa3723ecfc49a5b3db5c2aa89b4, type: 2}
   - {fileID: 11400000, guid: ff7394bd96c5e4d4894fc08cf204ec46, type: 2}
-  - {fileID: 11400000, guid: 1796f6ca084fbf74f8a14705a8fbe797, type: 2}
   - {fileID: 11400000, guid: a5bfd592962da1b44bd88668efa5848d, type: 2}
   - {fileID: 11400000, guid: d3d509efd06f792408d4a364da0949f0, type: 2}
 --- !u!4 &41163534
