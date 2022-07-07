@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 03 Water_Shallow
   m_EditorClassIdentifier: 
   hexType: 3
-  hexSprite: {fileID: 8969590705273672774, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  hexSprite: {fileID: 21300000, guid: 5d82f70ea23f7b044a9eaef0f19b855d, type: 3}
   typeElevation: 0.45

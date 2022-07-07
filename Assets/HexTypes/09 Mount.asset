@@ -13,5 +13,20 @@ MonoBehaviour:
   m_Name: 09 Mount
   m_EditorClassIdentifier: 
   hexType: 9
-  hexSprite: {fileID: 3467427668457958499, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  hexSprite: {fileID: 21300000, guid: e4a9e646856c4704f892c2db8a2ef792, type: 3}
   typeElevation: 0.9
+  treesGrowOnHexType:
+  - {fileID: 11400000, guid: e562647decd50c649af65d7adca61b1c, type: 2}
+  - {fileID: 11400000, guid: 1f9ed34688db74643b8e7d6b331bec4e, type: 2}
+  - {fileID: 11400000, guid: fa58157ab03af154f8355ba0ab401890, type: 2}
+  - {fileID: 11400000, guid: d7859a3d2c56d7443bc8d1cb201e6021, type: 2}
+  - {fileID: 11400000, guid: c4a0a2c6019fc464c961cc98c11558dd, type: 2}
+  - {fileID: 11400000, guid: 4fd4f6f036a1ee84e9ad9e048d898834, type: 2}
+  - {fileID: 11400000, guid: 5be49cf50bb85da4587d2be062e27cea, type: 2}
+  - {fileID: 11400000, guid: d42745a6cef4004438360297f7febaf1, type: 2}
+  - {fileID: 11400000, guid: 954aa339af752ae46a37d84f9d83b1a0, type: 2}
+  - {fileID: 11400000, guid: 024d7f403ea2368429ef05b0e37eb48b, type: 2}
+  - {fileID: 11400000, guid: 1e5c85b1e0a1f8b468fac3a8569ed710, type: 2}
+  - {fileID: 11400000, guid: f0c85c92d0723464586d0679bbd1c88c, type: 2}
+  - {fileID: 11400000, guid: 56a10b11c2aef7e44ae1f9658b152377, type: 2}
+  - {fileID: 11400000, guid: 3303b14ec686fb849a68d2f3796703c8, type: 2}

@@ -13,5 +13,19 @@ MonoBehaviour:
   m_Name: 05 Plain_Low
   m_EditorClassIdentifier: 
   hexType: 5
-  hexSprite: {fileID: 3035573476881159344, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  hexSprite: {fileID: 21300000, guid: 32d0b600e4fe94043be7e68adeb3c1cd, type: 3}
   typeElevation: 0.55
+  treesGrowOnHexType:
+  - {fileID: 11400000, guid: 702b733c9b337f54e862dcc7f2ffdcba, type: 2}
+  - {fileID: 11400000, guid: 6a7d00cc8f14c794889a5c4b64d46db4, type: 2}
+  - {fileID: 11400000, guid: e562647decd50c649af65d7adca61b1c, type: 2}
+  - {fileID: 11400000, guid: 1f9ed34688db74643b8e7d6b331bec4e, type: 2}
+  - {fileID: 11400000, guid: c4a0a2c6019fc464c961cc98c11558dd, type: 2}
+  - {fileID: 11400000, guid: 5be49cf50bb85da4587d2be062e27cea, type: 2}
+  - {fileID: 11400000, guid: e1bb731c71e779e40b375fa01e58a323, type: 2}
+  - {fileID: 11400000, guid: 1041d60e903271a4dab51c596a3f2c32, type: 2}
+  - {fileID: 11400000, guid: 954aa339af752ae46a37d84f9d83b1a0, type: 2}
+  - {fileID: 11400000, guid: 024d7f403ea2368429ef05b0e37eb48b, type: 2}
+  - {fileID: 11400000, guid: 838e74d23be8e1b45ac08482ef4326cd, type: 2}
+  - {fileID: 11400000, guid: 8447b3b02c5a80841acc04f4548ff98d, type: 2}
+  - {fileID: 11400000, guid: 56a10b11c2aef7e44ae1f9658b152377, type: 2}

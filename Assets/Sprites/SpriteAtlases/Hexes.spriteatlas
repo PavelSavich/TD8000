@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hexes
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6c7004e6705df534587ed549189a553d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 32d0b600e4fe94043be7e68adeb3c1cd, type: 3}
+  - {fileID: 21300000, guid: b19f7da030de38e448d36bf76dca007b, type: 3}
+  - {fileID: 21300000, guid: 57db6bb0a25dc9042a9b43515cca5e11, type: 3}
+  - {fileID: -6958950812443348255, guid: 8a23c312be3ac3b4cbf38710d2cfe6ff, type: 3}
+  - {fileID: 21300000, guid: 56b40b925242cf044b683ff726033f92, type: 3}
+  - {fileID: 3655696131826693213, guid: 25d4a683a631d724e80df7d6667aa12d, type: 3}
+  - {fileID: 21300000, guid: da3b11e52a9caea4b82abd2beaad5845, type: 3}
+  - {fileID: 21300000, guid: 63bd7c160e89f7e4eaf99d5fea7b008b, type: 3}
+  - {fileID: 21300000, guid: e4a9e646856c4704f892c2db8a2ef792, type: 3}
+  - {fileID: 5868094562757801808, guid: b92e9956513f2bd40b4b968f930e6d04, type: 3}
+  - {fileID: 21300000, guid: 52246f0766b0de2438b2756b2b88a0c5, type: 3}
+  - {fileID: 21300000, guid: 27fc59091b010bf43a8ca0cc1d6e874d, type: 3}
+  - {fileID: 5868094562757801808, guid: 4f20a6ac031ede440a96490da71c549a, type: 3}
+  - {fileID: 21300000, guid: fb3781ad826145744a71ee6bff62484d, type: 3}
+  - {fileID: 21300000, guid: 5d82f70ea23f7b044a9eaef0f19b855d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - HexSheet-5
+  - HexSheet-10
+  - HexSheet-0
+  - HexWide_0
+  - HexSheet-6
+  - HexWhiteWithFrame_0
+  - HexSheet-4
+  - HexSheet-7
+  - HexSheet-9
+  - HexFull_0
+  - HexSheet-1
+  - HexSheet-8
+  - HexFull_0
+  - HexSheet-2
+  - HexSheet-3
+  m_RenderDataMap: {}
+  m_Tag: Hexes
+  m_IsVariant: 0

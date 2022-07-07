@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: 04 Shore
   m_EditorClassIdentifier: 
   hexType: 4
-  hexSprite: {fileID: -1841705093073922620, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  hexSprite: {fileID: 21300000, guid: da3b11e52a9caea4b82abd2beaad5845, type: 3}
   typeElevation: 0.5
+  treesGrowOnHexType:
+  - {fileID: 11400000, guid: 220653274a2726a47a2b1be3a7d057b4, type: 2}
+  - {fileID: 11400000, guid: f58588cab4182cb43b47b24656c9596b, type: 2}
+  - {fileID: 11400000, guid: aac8d9048e360144b8cb843c0040ae58, type: 2}
+  - {fileID: 11400000, guid: 4dcaf05b1191816438a83bfba9cc8163, type: 2}

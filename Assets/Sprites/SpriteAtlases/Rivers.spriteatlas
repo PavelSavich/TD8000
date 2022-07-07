@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Rivers
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: a2849cf3bd4ec99489fe90f64e27841a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 6386548008d4bd3408e76706bae3d903, type: 3}
+  - {fileID: 21300000, guid: f5007d71242c86d43a6b4596f0d1e461, type: 3}
+  - {fileID: 21300000, guid: f246a20216b5e2746a0320f37be805c5, type: 3}
+  - {fileID: 21300000, guid: a8b97f62e629fe44d8e1a663cda748cc, type: 3}
+  - {fileID: 21300000, guid: 9b5151b2aa2048640856cb3abd114192, type: 3}
+  - {fileID: 21300000, guid: 8a1ddce316d40df469ede813339c34f3, type: 3}
+  - {fileID: 21300000, guid: a7fc307562d1a564582a9c00c4ddbfc3, type: 3}
+  - {fileID: 21300000, guid: 564e1cf5d7948c34c90438f5e298f24c, type: 3}
+  - {fileID: 21300000, guid: aad5e1061bdb69e4e80f9b2b0822da33, type: 3}
+  - {fileID: 21300000, guid: aae640d7bcb8f5847b6763319a4ac7f5, type: 3}
+  - {fileID: 21300000, guid: 7d7937d7ea3f31d4dbf819db9b6c1224, type: 3}
+  - {fileID: 21300000, guid: 910b1c4b5f8741d4ba432b5c56e5f5fc, type: 3}
+  - {fileID: 21300000, guid: 1df0189bfdb6b79448f525c008393db5, type: 3}
+  - {fileID: 21300000, guid: deca3d8c72ebeb249819e43e90045cb6, type: 3}
+  - {fileID: 21300000, guid: c89fc5fcae124bd4faecff772cdf0ff5, type: 3}
+  - {fileID: 21300000, guid: 984cd5fe344afe741b7536a9f28362da, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - RiverSheet-2
+  - RiverSheet-1
+  - RiverSheet-15
+  - RiverSheet-6
+  - RiverSheet-7
+  - RiverSheet-5
+  - RiverSheet-3
+  - RiverSheet-14
+  - RiverSheet-10
+  - RiverSheet-11
+  - RiverSheet-4
+  - RiverSheet-13
+  - RiverSheet-8
+  - RiverSheet-12
+  - RiverSheet-9
+  - RiverSheet-0
+  m_RenderDataMap: {}
+  m_Tag: Rivers
+  m_IsVariant: 0

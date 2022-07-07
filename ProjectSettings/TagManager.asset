@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - River
+  - Tree
+  - Building
+  - Unit
+  - Pickup
+  - CameraViewport
   layers:
   - Default
   - TransparentFX
@@ -11,13 +18,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - River
+  - Tree
+  - Building
+  - Unit
+  - Pickup
+  - Minimap
   - 
   - 
   - 
@@ -40,4 +47,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 4191539195
+    locked: 0
+  - name: River
+    uniqueID: 4037324487
+    locked: 0
+  - name: Tree
+    uniqueID: 3931761313
+    locked: 0
+  - name: Building
+    uniqueID: 1190096495
+    locked: 0
+  - name: Unit
+    uniqueID: 2990179101
+    locked: 0
+  - name: Pickup
+    uniqueID: 1572849777
+    locked: 0
+  - name: Minimap
+    uniqueID: 175830951
     locked: 0

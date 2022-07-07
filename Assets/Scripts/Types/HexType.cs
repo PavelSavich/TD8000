@@ -13,7 +13,7 @@ namespace TD.Map
         HillsHigh,
         Mount,
         MountSnow,
-    };   
+    };
 }
 
 

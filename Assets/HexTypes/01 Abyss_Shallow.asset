@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 01 Abyss_Shallow
   m_EditorClassIdentifier: 
   hexType: 1
-  hexSprite: {fileID: -8612613340598353520, guid: cb8bd942071999a47904106e35e88c4a, type: 3}
+  hexSprite: {fileID: 21300000, guid: 52246f0766b0de2438b2756b2b88a0c5, type: 3}
   typeElevation: 0.01
