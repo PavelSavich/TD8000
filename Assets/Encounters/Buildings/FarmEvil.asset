@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cef1e54c07e058448722f60a1bd650c, type: 3}
+  m_Name: FarmEvil
+  m_EditorClassIdentifier: 
+  spawnableAttributes: {fileID: 11400000, guid: ea25ef49a91e98841b8b3b92fced7e2a, type: 2}
+  encounterType: 0
+  encounterName: Abondened Farm
+  encounterDescription: Looks like you can rest here...
+  encounterResolution: You have been atacked by some local bandits.
+  bonusPoints: -2
+  initialLevel: 0
+  initialAttack: 0
+  initialDefence: 0
+  initialHP: 0

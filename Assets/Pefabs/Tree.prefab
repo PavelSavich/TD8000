@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -363205983
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0c1ba0634c3208f4babf5b49345744f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6192486537708747522}
   m_Layer: 0
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -125,14 +125,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3243739901520473935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32fc13161df5084996a515fb0afd0b2, type: 3}
+  m_Script: {fileID: 11500000, guid: ce0151c4c42d40944845ebf187ad5e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treeAttributes: {fileID: 0}
-  trunkSprite: {fileID: 3243739902425792967}
-  leavesSprite: {fileID: 3243739901205035783}
+  spawnableAttributes: {fileID: 0}
+  primarySprite: {fileID: 3243739901205035783}
+  secondarySprite: {fileID: 3243739902425792967}
   baseTransform: {fileID: 3243739902872537966}
-  treeLayer:
+  spreadOnHex: {x: 0.35, y: 0, z: 0.35}
+  spawnBoxOverlap: 0.04
+  spawnableLayer:
     serializedVersion: 2
     m_Bits: 256
 --- !u!1 &3243739902425792961
@@ -205,7 +207,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -363205983
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a307ab0299739a54ea7848eac343a61d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

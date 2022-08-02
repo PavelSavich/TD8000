@@ -54,6 +54,9 @@ TagManager:
   - name: River
     uniqueID: 4037324487
     locked: 0
+  - name: Spawnable
+    uniqueID: 3012377981
+    locked: 0
   - name: Tree
     uniqueID: 3931761313
     locked: 0
@@ -68,4 +71,7 @@ TagManager:
     locked: 0
   - name: Minimap
     uniqueID: 175830951
+    locked: 0
+  - name: Player
+    uniqueID: 3580692671
     locked: 0

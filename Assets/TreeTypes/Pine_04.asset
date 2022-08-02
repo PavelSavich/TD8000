@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22519bd0d5ce40c4098aac898d190e76, type: 3}
   m_Name: Pine_04
   m_EditorClassIdentifier: 
-  growsOnHexTypes: 090000000a000000
-  trunkSprite: {fileID: 21300000, guid: 97c2d7dab8e5f4949b7f2eba10a9570d, type: 3}
-  trunkColor:
+  primarySprite: {fileID: 21300000, guid: 56b1431e0df1ab248a30a905cdb3fb16, type: 3}
+  primaryColor:
     serializedVersion: 2
-    rgba: 4278203264
-  leavesSprite: {fileID: 21300000, guid: 56b1431e0df1ab248a30a905cdb3fb16, type: 3}
-  leavesColor:
+    rgba: 4278222852
+  secondarySprite: {fileID: 21300000, guid: 97c2d7dab8e5f4949b7f2eba10a9570d, type: 3}
+  secondaryColor:
     serializedVersion: 2
-    rgba: 4291611852
+    rgba: 4278211200

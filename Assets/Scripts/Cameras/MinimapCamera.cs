@@ -8,10 +8,10 @@ namespace TD.Cameras
     {
         [SerializeField] Camera minimapCamera = null;
 
-        public void SetPosition (Transform lastHexTransfrom)
+        public void SetPosition (Vector3 lastHexPos)
         {
-            transform.position = new Vector3(lastHexTransfrom.position.x / 2, transform.position.y, lastHexTransfrom.position.z / 2);
-            minimapCamera.orthographicSize = Mathf.Max(lastHexTransfrom.position.x / 2, lastHexTransfrom.position.z / 2) + 2;
+            transform.position = new Vector3(lastHexPos.x / 2, transform.position.y, lastHexPos.z / 2);
+            minimapCamera.orthographicSize = Mathf.Max(lastHexPos.x / 2, lastHexPos.z / 2) + 2;
         }
     }
 }

@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TD.Saving;
 
 namespace TD.Map
 {
-    public class Hex : MonoBehaviour
+    public class Hex : MonoBehaviour//, ISaveable
     {
         [Header("Hex Coordinates:")]
-        [SerializeField] private Vector2Int hexCoordinate = new Vector2Int();
+        [SerializeField] private Vector2Int hexCoordinates = new Vector2Int();
 
         [Header("Elevation:")]
         [Range(0,1)][SerializeField] private float hexPatternElevation = 0;
@@ -33,7 +34,7 @@ namespace TD.Map
 
         public void SetHexCoordinates(Vector2Int coordinatesToSet)
         {
-            hexCoordinate = coordinatesToSet;
+            hexCoordinates = coordinatesToSet;
         }
 
 
@@ -57,9 +58,9 @@ namespace TD.Map
             name =  $"Hex {hexName}";
         }
 
-        public Vector2Int GetHexCoordinate()
+        public Vector2Int GetHexCoordinates()
         {
-            return hexCoordinate;
+            return hexCoordinates;
         }
 
         public float GetElevation()
@@ -144,5 +145,65 @@ namespace TD.Map
             return spawner;
         }
 
+        //[System.Serializable]
+        //private struct SaveInfo
+        //{
+        //    public GameObject parent;
+        //    public Transform transform;
+        //    public Vector2Int hexCoordinates;
+        //    public float hexElevation;
+        //    public bool hasRiverStream;
+        //    public int vegetationAmount;
+        //    public List<Hex> neighbourHexes;
+        //    public HexAttributes hexAttributes;
+
+
+        //    public SaveInfo(GameObject parent,
+        //                    Transform transform,
+        //                    Vector2Int hexCoordinates,
+        //                    float hexElevation,
+        //                    bool hasRiverStream,
+        //                    int vegetationAmount,
+        //                    List<Hex> neighbourHexes,
+        //                    HexAttributes hexAttributes)
+        //    {
+        //        this.parent = parent;
+        //        this.transform = transform;
+        //        this.hexCoordinates = hexCoordinates;
+        //        this.hexElevation = hexElevation;
+        //        this.hasRiverStream = hasRiverStream;
+        //        this.vegetationAmount = vegetationAmount;
+        //        this.neighbourHexes = neighbourHexes;
+        //        this.hexAttributes = hexAttributes;
+        //    }
+        //}
+
+        //public object CaptureState()
+        //{
+        //    SaveInfo saveInfo = new SaveInfo(FindObjectOfType<MapParent>().gameObject,
+        //                                     transform,
+        //                                     hexCoordinates,
+        //                                     hexElevation, 
+        //                                     hasRiverStream, 
+        //                                     vegetationAmount, 
+        //                                     neighbourHexes, 
+        //                                     hexAttributes);
+
+        //    return saveInfo;
+        //}
+
+        //public void RestoreState(object state)
+        //{
+        //    SaveInfo savedInfo = (SaveInfo)state;
+        //    transform.parent = savedInfo.parent.transform;
+        //    transform.transform.position = savedInfo.transform.position;
+        //    transform.rotation = savedInfo.transform.rotation;
+        //    hexCoordinates = savedInfo.hexCoordinates;
+        //    hexElevation = savedInfo.hexElevation;
+        //    hasRiverStream = savedInfo.hasRiverStream;
+        //    vegetationAmount = savedInfo.vegetationAmount;
+        //    neighbourHexes = savedInfo.neighbourHexes;
+        //    hexAttributes = savedInfo.hexAttributes;
+        //}
     }
 }

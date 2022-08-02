@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cef1e54c07e058448722f60a1bd650c, type: 3}
+  m_Name: MageTowerGood
+  m_EditorClassIdentifier: 
+  spawnableAttributes: {fileID: 11400000, guid: ebafe091077ded34a9f4500ef01c5627, type: 2}
+  encounterType: 0
+  encounterName: Mage Tower
+  encounterDescription: 'Greetinga adventurer!
+
+    My name is Zard the wizard.
+
+    I
+    see you are on an important mission.
+
+    Come enter into my tower for guidance.'
+  encounterResolution: You gain valubale experience from the white wizard.
+  bonusPoints: 3
+  initialLevel: 0
+  initialAttack: 0
+  initialDefence: 0
+  initialHP: 0

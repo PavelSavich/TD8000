@@ -149,7 +149,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetHexCoordinate().x == randomXCenter && hex.GetHexCoordinate().y == randomYCenter)
+                        if (hex.GetHexCoordinates().x == randomXCenter && hex.GetHexCoordinates().y == randomYCenter)
                         {
                             initialHex = hex;
                         }
@@ -169,7 +169,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetHexCoordinate().x == randomXTop && hex.GetHexCoordinate().y == area.GetEndPosition().y)
+                        if (hex.GetHexCoordinates().x == randomXTop && hex.GetHexCoordinates().y == area.GetEndPosition().y)
                         {
                             initialHex = hex;
                         }
@@ -183,7 +183,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetHexCoordinate().x == randomXBottom && hex.GetHexCoordinate().y == area.GetStartPosition().y)
+                        if (hex.GetHexCoordinates().x == randomXBottom && hex.GetHexCoordinates().y == area.GetStartPosition().y)
                         {
                             initialHex = hex;
                         }
@@ -197,7 +197,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetHexCoordinate().x == area.GetEndPosition().x && hex.GetHexCoordinate().y == randomYRight)
+                        if (hex.GetHexCoordinates().x == area.GetEndPosition().x && hex.GetHexCoordinates().y == randomYRight)
                         {
                             initialHex = hex;
                         }
@@ -210,7 +210,7 @@ namespace TD.Map
 
                     foreach (Hex hex in area.GetHexList())
                     {
-                        if (hex.GetHexCoordinate().x == area.GetStartPosition().x && hex.GetHexCoordinate().y == randomYLeft)
+                        if (hex.GetHexCoordinates().x == area.GetStartPosition().x && hex.GetHexCoordinates().y == randomYLeft)
                         {
                             initialHex = hex;
                         }
@@ -235,9 +235,6 @@ namespace TD.Map
 
             switch (currentPattern)
             {
-                case PatternType.none:
-                    break;
-
                 case PatternType.island:
 
 

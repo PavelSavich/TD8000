@@ -10,8 +10,8 @@ namespace TD.Map
     {
         [Header("Initialisation:")]
 
-        [Tooltip("Map Prefab")][SerializeField] Map mapPrefab = null;
-        Map mapParent;
+        [Tooltip("Map Prefab")][SerializeField] MapParent mapPrefab = null;
+        MapParent mapParent;
 
         [Tooltip("Hex Prefab")][SerializeField] Hex hexPrefab = null;
         [SerializeField] float horizontalOffset = -0.13f;
@@ -40,7 +40,7 @@ namespace TD.Map
         [SerializeField] bool randomOffset = false;
 
         [Header("Map Hex Types:")]
-        [SerializeField] HexAttributes[] availibleHexTypes;
+        [SerializeField] HexDataBase hexDatabase;
 
         [Header("Rivers:")]
         [Tooltip("River Prefab")][SerializeField] RiverStream riverStreamPrefab = null;
@@ -53,74 +53,21 @@ namespace TD.Map
         [Range(0.25f, 0.75f)][SerializeField] float flowDevision = 0.5f;
 
         [Header("Trees:")]
-        [Tooltip("River Prefab")][SerializeField] HexTree treePrefab = null;
-        [SerializeField] TreeAttributes[] availibleTreeTypes;
+        [Tooltip("River Prefab")][SerializeField] HexSpawnable treePrefab = null;
+        [SerializeField] SpawnableDataBase TreeDataBase;
         [SerializeField] HexAttributes maxVegetationHexType = null;
+
+
+        [Header("Buildings:")]
+        [Tooltip("Building Prefab")][SerializeField] HexSpawnable buildingPrefab = null;
+        [SerializeField] EncounterDataBase buildingDataBase;
+
+        [Header("Units:")]
+        [Tooltip("Unit Prefab")][SerializeField] HexSpawnable unitPrefab = null;
+        [SerializeField] EncounterDataBase unitDataBase;
 
         void Start()
         {
-            Assets.Scripts.Profiler profiler = new Assets.Scripts.Profiler("CreateMapParent");
-
-            CreateMapParent();
-
-            profiler.measureDeltaTime("PlaceHexes");
-
-            BuildHexMap();
-
-            profiler.measureDeltaTime("SetHexNeighbours");
-
-            SetHexNeighbours();
-
-            profiler.measureDeltaTime("SetupMapPattern");
-
-            SetupMapPattern();
-
-            profiler.measureDeltaTime("BuildPatternElevationMap");
-
-            BuildPatternElevationMap();
-
-            profiler.measureDeltaTime("BuildNoiseElevationMap");
-
-            BuildNoiseElevationMap();
-
-            profiler.measureDeltaTime("SetHexElevationMap");
-
-            SetHexElevationMap();
-
-            profiler.measureDeltaTime("SetHexAttributes");
-
-            SetHexAttributes();
-
-            profiler.measureDeltaTime("SetHexSprites");
-
-            SetHexSprites();
-
-            //SetBlackAndWhiteHeightMap();
-
-            profiler.measureDeltaTime("BuildRiverBeginingsList");
-
-            BuildRiverBeginingsList();
-
-            profiler.measureDeltaTime("GenerateRivers");
-
-            GenerateRivers();
-
-            profiler.measureDeltaTime("SetHexVegetation");
-
-            SetHexVegetation();
-
-            profiler.measureDeltaTime("GenerateVegetation");
-
-            GenerateVegetation();
-
-            profiler.measureDeltaTime("SetTreeAttributes");
-
-            SetTreeAttributes();
-
-            //SetupAreas();
-            //DevideAllHexesToCardinalAreas();
-
-            SetupCameras();
 
         }
 
@@ -128,7 +75,7 @@ namespace TD.Map
 
         public void CreateMapParent()
         {
-            mapParent = Instantiate(mapPrefab, transform.position, Quaternion.identity, gameObject.transform);
+            mapParent = Instantiate(mapPrefab, transform.position, Quaternion.identity);
             //TODO: Name the map
         }
 
@@ -157,22 +104,25 @@ namespace TD.Map
                     mapParent.hexMap.SetHexToMap(hex);
                 }
             }
+
+            mapParent.SetMapSize(mapSize);
+            mapParent.SetLastHexPos(mapParent.hexMap.GetLastHexFromMap(mapSize).transform.position);
         }
 
         private void FixPosition(Hex hex)
         {
 
-            if (hex.GetHexCoordinate().y%2 != 0)
+            if (hex.GetHexCoordinates().y%2 != 0)
             {
-                hex.transform.position = new Vector3(hex.transform.position.x + (hex.GetHexCoordinate().x * horizontalOffset),
+                hex.transform.position = new Vector3(hex.transform.position.x + (hex.GetHexCoordinates().x * horizontalOffset),
                                                      0,
-                                                     hex.transform.position.z + hex.GetHexCoordinate().y * verticalOffset);
+                                                     hex.transform.position.z + hex.GetHexCoordinates().y * verticalOffset);
             }
             else
             {
-                hex.transform.position = new Vector3(hex.transform.position.x + ((hex.transform.localScale.x + horizontalOffset)/2) + (hex.GetHexCoordinate().x * horizontalOffset),
+                hex.transform.position = new Vector3(hex.transform.position.x + ((hex.transform.localScale.x + horizontalOffset)/2) + (hex.GetHexCoordinates().x * horizontalOffset),
                                                      0,
-                                                     hex.transform.position.z + hex.GetHexCoordinate().y * verticalOffset);
+                                                     hex.transform.position.z + hex.GetHexCoordinates().y * verticalOffset);
             }
 
         }
@@ -190,7 +140,7 @@ namespace TD.Map
                 {
                     currentDirection = (Direction)dir;
 
-                    Hex neighbour = mapParent.hexMap.GetNeighbour(hex.GetHexCoordinate(), currentDirection, mapSize);
+                    Hex neighbour = mapParent.hexMap.GetNeighbour(hex.GetHexCoordinates(), currentDirection, mapSize);
 
                     if (neighbour != null)
                     {
@@ -210,13 +160,6 @@ namespace TD.Map
 
         private void SetupMapPattern()
         {
-
-            if (currentPattern == PatternType.none)
-            {
-                Debug.LogError("Pattern is Missing");
-                return;
-            }
-
             foreach (PatternAttributes availiblePattern in availiblePatterns)
             {
                 if (availiblePattern.GetPattern() == currentPattern)
@@ -233,7 +176,11 @@ namespace TD.Map
         {
             foreach (Hex hex in mapParent.hexMap.GetHexMap())
             {
-                hex.SetHexPatternElevation(MapCalculator.CalculateElevation(currentPattern,mapSize.x,mapSize.y,hex.GetHexCoordinate().x, hex.GetHexCoordinate().y));
+                hex.SetHexPatternElevation(MapCalculator.CalculateElevation(currentPattern,
+                                                                            mapSize.x,
+                                                                            mapSize.y,
+                                                                            hex.GetHexCoordinates().x,
+                                                                            hex.GetHexCoordinates().y));
             }
         }
 
@@ -253,7 +200,7 @@ namespace TD.Map
 
             foreach (Hex hex in mapParent.hexMap.GetHexMap())
             {
-                hex.SetHexNoiseElevation(noiseMap[hex.GetHexCoordinate().x, hex.GetHexCoordinate().y]);
+                hex.SetHexNoiseElevation(noiseMap[hex.GetHexCoordinates().x, hex.GetHexCoordinates().y]);
             }
         }
 
@@ -273,7 +220,7 @@ namespace TD.Map
         {
             foreach(Hex hex in mapParent.hexMap.GetHexMap())
             {
-                foreach (HexAttributes hexType in availibleHexTypes)
+                foreach (HexAttributes hexType in hexDatabase.hexList)
                 {
                     if (hex.GetElevation() <= hexType.GetTypeElevation())
                     {
@@ -308,6 +255,7 @@ namespace TD.Map
         {
             List<Hex> highGroundList = new List<Hex>();
 
+            riverBeginingsList.Clear();
 
             foreach (Hex hex in mapParent.hexMap.GetHexMap())
             {
@@ -336,7 +284,7 @@ namespace TD.Map
         {
             foreach (Hex hex in riverBeginingsList)
             {
-                //hex.GetComponentInChildren<SpriteRenderer>().color = new Color(0,1,0) * hex.GetElevation();
+                //hex.GetComponentInChildren<SpriteRenderer>().color = new Color(0,1,0) * hex.GetElevation(); // DEBUG
 
                 GenerateOneRiver(hex, 0, initialFlowForce);
             }
@@ -443,19 +391,166 @@ namespace TD.Map
                     continue;
                 }
 
-                hex.GetSpawner().SpawnObjects(treePrefab.gameObject, hex.GetVegetationAmount(), treePrefab.GetLayer(), hex.gameObject);
+                hex.GetSpawner().SpawnObjects(treePrefab.gameObject, hex.GetVegetationAmount(),treePrefab.GetSpread(),treePrefab.GetBoxOverlap(), treePrefab.GetLayer(), hex.gameObject);
             }
         }
 
         private void SetTreeAttributes()
         {
-            HexTree[] allTrees = FindObjectsOfType<HexTree>();
+            HexSpawnable[] allTrees = FindObjectsOfType<HexSpawnable>();
 
-            foreach (HexTree tree in allTrees)
+            //HexSpawnable[] allTrees = GameObject.FindGameObjectsWithTag("Tree");
+
+            foreach (HexSpawnable tree in allTrees)
             {
-                tree.SetTreeAttributes(tree.gameObject.GetComponentInParent<Hex>().GetHexAttributes().GetRandomTreeType());
-                tree.SetSprites();
+                if (tree.gameObject.CompareTag("Tree"))
+                {
+                    tree.SetSpawnableAttributes(tree.gameObject.GetComponentInParent<Hex>().GetHexAttributes().GetRandomTreeType());
+                    tree.SetSprites();
+                }
             }
+        }
+
+        #endregion
+
+        #region Buildings
+
+        private void GenerateBuildings()
+        {
+            foreach (Hex hex in mapParent.hexMap.GetHexMap())
+            {
+                if (hex.GetElevation() <= waterType.GetTypeElevation())
+                {
+                    continue;
+                }
+
+                int roll = RollDice.Roll(20);
+
+                if (roll > 4) // TODO: Make it dynamic depends on difficulty and number of players
+                {
+                    continue;
+                }
+
+                hex.GetSpawner().SpawnObjects(buildingPrefab.gameObject, 1, buildingPrefab.GetSpread(), buildingPrefab.GetBoxOverlap(), buildingPrefab.GetLayer(), hex.gameObject);
+                hex.GetSpawner().DeactivateSpawner();
+            }
+        }
+
+        private void SetBuildingEncounter()
+        {
+            Encounter[] buildingEncounters = FindObjectsOfType<Encounter>();
+
+            foreach (Encounter building in buildingEncounters)
+            {
+                if (building.gameObject.CompareTag("Building"))
+                {
+                    building.SetEncounterAttributes(buildingDataBase.encounterList[Random.Range(0, buildingDataBase.encounterList.Count)]);
+
+                    HexSpawnable buildingSpawnable = building.gameObject.GetComponent<HexSpawnable>();
+
+                    buildingSpawnable.SetSpawnableAttributes(building.GetEncounterAttributes().GetSpawnablAttributes());
+                    buildingSpawnable.SetSprites();
+
+                    building.SetEncounterStats();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Units
+
+        private void GenerateUnits()
+        {
+            foreach (Hex hex in mapParent.hexMap.GetHexMap())
+            {
+                if (hex.GetElevation() <= waterType.GetTypeElevation())
+                {
+                    continue;
+                }
+
+                int roll = RollDice.Roll(20);
+
+                if (roll > 8) // TODO: Make it dynamic depends on difficulty and number of players
+                {
+                    continue;
+                }
+
+                hex.GetSpawner().SpawnObjects(unitPrefab.gameObject, 1, unitPrefab.GetSpread(), unitPrefab.GetBoxOverlap(), unitPrefab.GetLayer(), hex.gameObject);
+                hex.GetSpawner().DeactivateSpawner();
+            }
+        }
+
+        private void SetUnitEncounter()
+        {
+            Encounter[] unitEncounters = FindObjectsOfType<Encounter>();
+
+            foreach (Encounter unit in unitEncounters)
+            {
+                if (unit.gameObject.CompareTag("Unit"))
+                {
+                    unit.SetEncounterAttributes(unitDataBase.encounterList[Random.Range(0, unitDataBase.encounterList.Count)]);
+
+                    HexSpawnable unitSpawnable = unit.gameObject.GetComponent<HexSpawnable>();
+
+                    unitSpawnable.SetSpawnableAttributes(unit.GetEncounterAttributes().GetSpawnablAttributes());
+                    unitSpawnable.SetSprites();
+
+                    unit.SetEncounterStats();
+
+                    int roll = RollDice.Roll(2);
+
+                    if (roll > 1) // flip
+                    {
+                        unitSpawnable.GetPrimarySprite().flipX = true;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region Clearing
+
+        private void OrderSpawnableSprites()
+        {
+            HexSpawnable[] allHexSpawnables = FindObjectsOfType<HexSpawnable>();
+
+            foreach (HexSpawnable hexSpawnable in allHexSpawnables)
+            {
+                hexSpawnable.GetPrimarySprite().sortingLayerName = "Spawnable";
+                hexSpawnable.GetPrimarySprite().sortingOrder = Mathf.RoundToInt(hexSpawnable.gameObject.transform.position.z * -100);
+
+                hexSpawnable.GetSecondarySprite().sortingLayerName = "Spawnable";
+                hexSpawnable.GetSecondarySprite().sortingOrder = Mathf.RoundToInt(hexSpawnable.gameObject.transform.position.z * -100);
+            }    
+        }
+
+        private void ClearGenerationElements()
+        {
+            HexAreaSpawner[] hexAreaSpawners = FindObjectsOfType<HexAreaSpawner>();
+
+            foreach (HexAreaSpawner areaSpawner in hexAreaSpawners)
+            {
+                Destroy(areaSpawner);
+            }
+ 
+            RiverStream[] streams = FindObjectsOfType<RiverStream>();
+
+            foreach (RiverStream stream in streams)
+            {
+                Destroy(stream);
+            }
+
+            HexSpawnable[] allTrees = FindObjectsOfType<HexSpawnable>();
+
+            foreach (HexSpawnable tree in allTrees)
+            {
+                Destroy(tree);
+            }
+
+
         }
 
         #endregion
@@ -475,10 +570,10 @@ namespace TD.Map
             {
                 foreach (Hex hex in mapParent.hexMap.GetHexMap())
                 {
-                    if ((hex.GetHexCoordinate().x >= area.GetStartPosition().x) &&
-                        (hex.GetHexCoordinate().x <= area.GetEndPosition().x) &&
-                        (hex.GetHexCoordinate().y >= area.GetStartPosition().y) &&
-                        (hex.GetHexCoordinate().y <= area.GetEndPosition().y))
+                    if ((hex.GetHexCoordinates().x >= area.GetStartPosition().x) &&
+                        (hex.GetHexCoordinates().x <= area.GetEndPosition().x) &&
+                        (hex.GetHexCoordinates().y >= area.GetStartPosition().y) &&
+                        (hex.GetHexCoordinates().y <= area.GetEndPosition().y))
                     {
                         area.AddToHexList(hex);
                     }
@@ -487,30 +582,115 @@ namespace TD.Map
             }
         }
 
-        //TODO: Move it to a CamerasDirector Class....
-        private void SetupCameras()
+        #region Public Functions
+
+        public void SetSize(int sizeToSet)
         {
-            CameraController cameraController = FindObjectOfType<CameraController>();
-            MinimapCamera minimapCamera = FindObjectOfType<MinimapCamera>();
-            Minimap minimap = FindObjectOfType<Minimap>();
-
-            Vector2Int lastHexCoordinates = new Vector2Int(mapSize.x - 1, mapSize.y - 1);
-
-            if (cameraController != null)
-            {
-                cameraController.SetScreenLimits(mapParent.hexMap.GetHexFromMap(lastHexCoordinates).transform);
-            }
-
-            if (minimapCamera != null)
-            {
-                minimapCamera.SetPosition(mapParent.hexMap.GetHexFromMap(lastHexCoordinates).transform);
-            }
-
-            if (minimap != null)
-            {
-                minimap.SetMapSize(mapParent.hexMap.GetHexFromMap(lastHexCoordinates).transform);
-            }
+            horizontalMapSize = sizeToSet;
+            verticalMapSize = sizeToSet;
         }
+
+        public void SetPattern(int typeToSet)
+        {
+            currentPattern = (PatternType)typeToSet;
+        }
+
+        public void SetRrandomSeed(bool isRandom)
+        {
+            randomSeed = isRandom;
+        }
+
+        public void SetSeed(int seedToSet)
+        {
+            seed = seedToSet;
+        }
+
+        public int GetSeed()
+        {
+            return seed;
+        }
+
+        public void GenerateMap()
+        {
+            Assets.Scripts.Profiler profiler = new Assets.Scripts.Profiler("CreateMapParent");
+
+            CreateMapParent();
+
+            profiler.measureDeltaTime("PlaceHexes");
+
+            BuildHexMap();
+
+            profiler.measureDeltaTime("SetHexNeighbours");
+
+            SetHexNeighbours();
+
+            profiler.measureDeltaTime("SetupMapPattern");
+
+            SetupMapPattern();
+
+            profiler.measureDeltaTime("BuildPatternElevationMap");
+
+            BuildPatternElevationMap();
+
+            profiler.measureDeltaTime("BuildNoiseElevationMap");
+
+            BuildNoiseElevationMap();
+
+            profiler.measureDeltaTime("SetHexElevationMap");
+
+            SetHexElevationMap();
+
+            profiler.measureDeltaTime("SetHexAttributes");
+
+            SetHexAttributes();
+
+            profiler.measureDeltaTime("SetHexSprites");
+
+            SetHexSprites();
+
+            //SetBlackAndWhiteHeightMap();
+
+            profiler.measureDeltaTime("BuildRiverBeginingsList");
+
+            BuildRiverBeginingsList();
+
+            profiler.measureDeltaTime("GenerateRivers");
+
+            GenerateRivers();
+
+            profiler.measureDeltaTime("SetHexVegetation");
+
+            SetHexVegetation();
+
+            profiler.measureDeltaTime("GenerateVegetation");
+
+
+            GenerateVegetation();
+
+            profiler.measureDeltaTime("SetTreeAttributes");
+
+            SetTreeAttributes();
+
+            GenerateBuildings();
+
+            SetBuildingEncounter();
+
+            GenerateUnits();
+
+            SetUnitEncounter();
+
+            //TODO: order all sptites in the hex using z position (top down) 
+
+            //SetupAreas();
+            //DevideAllHexesToCardinalAreas();
+
+            OrderSpawnableSprites();
+
+            ClearGenerationElements();
+        }
+
+        #endregion
+
     }
 }
 

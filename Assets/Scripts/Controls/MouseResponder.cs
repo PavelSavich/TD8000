@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TD.Map;
 using UnityEngine;
 
 namespace TD.Controls
@@ -10,6 +11,8 @@ namespace TD.Controls
         [SerializeField] Color idleColor = new Color();
         [SerializeField] Color pressedColor = new Color();
 
+        MovementManager movementManager;
+
         private void Start()
         {
             idleColor = sprite.color;
@@ -17,14 +20,26 @@ namespace TD.Controls
 
         private void OnMouseEnter()
         {
-            sprite.enabled = true;
-            sprite.color = idleColor;
+            Hex pointingOnHex = gameObject.GetComponentInParent<Hex>();
+
+            if (pointingOnHex != null)
+            {
+                if (movementManager == null)
+                {
+                    movementManager = FindObjectOfType<MovementManager>();
+                }
+                else
+                {
+                    movementManager.SetPointingOnHex(pointingOnHex);
+                }
+            }
+
+            HighlightHex();
         }
 
         private void OnMouseExit()
         {
-            sprite.enabled=false;
-            sprite.color = idleColor;
+            DeHighlightHex();
         }
 
         private void OnMouseDown()
@@ -34,6 +49,18 @@ namespace TD.Controls
 
         private void OnMouseUp()
         {
+            sprite.color = idleColor;
+        }
+
+        public void HighlightHex()
+        {
+            sprite.enabled = true;
+            sprite.color = idleColor;
+        }
+
+        public void DeHighlightHex()
+        {
+            sprite.enabled = false;
             sprite.color = idleColor;
         }
     }

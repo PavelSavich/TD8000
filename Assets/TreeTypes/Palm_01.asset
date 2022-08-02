@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22519bd0d5ce40c4098aac898d190e76, type: 3}
   m_Name: Palm_01
   m_EditorClassIdentifier: 
-  trunkSprite: {fileID: 21300000, guid: a307ab0299739a54ea7848eac343a61d, type: 3}
-  trunkColor:
-    serializedVersion: 2
-    rgba: 4278203264
-  leavesSprite: {fileID: 21300000, guid: 0c1ba0634c3208f4babf5b49345744f1, type: 3}
-  leavesColor:
+  primarySprite: {fileID: 21300000, guid: 0c1ba0634c3208f4babf5b49345744f1, type: 3}
+  primaryColor:
     serializedVersion: 2
     rgba: 4278222852
+  secondarySprite: {fileID: 21300000, guid: a307ab0299739a54ea7848eac343a61d, type: 3}
+  secondaryColor:
+    serializedVersion: 2
+    rgba: 4278211200

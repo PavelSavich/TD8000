@@ -34,18 +34,22 @@ namespace TD.Map
 
         public void SetHexToMap(Hex hex)
         {
-            hexMap[hex.GetHexCoordinate().x,hex.GetHexCoordinate().y] = hex;
+            hexMap[hex.GetHexCoordinates().x,hex.GetHexCoordinates().y] = hex;
         }
 
         public Hex GetHexFromMap(int2 coord)
         {
-            if(hexMap[coord.x, coord.y] != null)
+            if (hexMap[coord.x, coord.y] == null)
             {
-                return hexMap[coord.x, coord.y];
+                return null;
 
             }
+            return hexMap[coord.x, coord.y];
+        }
 
-            return null;
+        public Hex GetLastHexFromMap(int2 mapSize)
+        {
+            return hexMap[mapSize.x - 1, mapSize.y - 1];
         }
 
         public Hex GetNeighbour(int2 coord, Direction direction, int2 mapSize)

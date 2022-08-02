@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6849930351249442077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6849930351249442079}
+  - component: {fileID: 6849930351249442076}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6849930351249442079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6849930351249442077}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6849930351249442076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6849930351249442077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3655cdfc1b94e84eb89b779feb8abff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapPrefab: {fileID: 3700072022737098420, guid: e1b6756b3d1cebf45ad19f4e683e3e0a, type: 3}
+  hexPrefab: {fileID: 714015677998908673, guid: 943e484cb075d4a4fba87b49840f3caa, type: 3}
+  horizontalOffset: -0.145
+  verticalOffset: -0.255
+  horizontalMapSize: 50
+  verticalMapSize: 50
+  mapSize: {x: 12, y: 12}
+  availiblePatterns:
+  - {fileID: 11400000, guid: 1096b600e2df69642aa84826e9710c85, type: 2}
+  currentPattern: 0
+  cardinalsInMap:
+  - cardinalArea: 0
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 1
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 2
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 3
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 4
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 5
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 6
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 7
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 8
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  - cardinalArea: 9
+    startPostion: {x: 0, y: 0}
+    endPostion: {x: 0, y: 0}
+    hexesInArea: []
+  noiseScale: 25
+  octaves: 5
+  persistance: 0.5
+  lacunarity: 2
+  seed: 0
+  randomSeed: 1
+  offset: {x: 0, y: 0}
+  randomOffset: 1
+  availibleHexTypes:
+  - {fileID: 11400000, guid: 8e1e5ecba4ec8a44f92e813b800860d6, type: 2}
+  - {fileID: 11400000, guid: 0ea93df330c7a184586ef71c9d148cf8, type: 2}
+  - {fileID: 11400000, guid: d66acd1cb487afa458a39c4182d75bb0, type: 2}
+  - {fileID: 11400000, guid: 54a4df8368d239e4d911fe271cc89691, type: 2}
+  - {fileID: 11400000, guid: 0b37bac8a02100741b2da85c816b9ee5, type: 2}
+  - {fileID: 11400000, guid: 6d58f5989da050a4593495fdc27554c2, type: 2}
+  - {fileID: 11400000, guid: 3328611d744c1374490c127dac9b0cbb, type: 2}
+  - {fileID: 11400000, guid: c6b99fa3723ecfc49a5b3db5c2aa89b4, type: 2}
+  - {fileID: 11400000, guid: ff7394bd96c5e4d4894fc08cf204ec46, type: 2}
+  - {fileID: 11400000, guid: a5bfd592962da1b44bd88668efa5848d, type: 2}
+  - {fileID: 11400000, guid: d3d509efd06f792408d4a364da0949f0, type: 2}
+  riverStreamPrefab: {fileID: 7499674828881056806, guid: 23d8a11c8a7160b4494d8d3a75316756, type: 3}
+  minimalHighGroundType: {fileID: 11400000, guid: c6b99fa3723ecfc49a5b3db5c2aa89b4, type: 2}
+  riverBeginingsList: []
+  waterType: {fileID: 11400000, guid: 54a4df8368d239e4d911fe271cc89691, type: 2}
+  relativeRiverAmount: 0.1
+  initialFlowForce: 100
+  flowReduction: 0.98
+  flowDevision: 0.375
+  treePrefab: {fileID: 6192486537708747522, guid: a07bc271a69ca5b459256e96d0f6196a, type: 3}
+  availibleTreeTypes:
+  - {fileID: 11400000, guid: 702b733c9b337f54e862dcc7f2ffdcba, type: 2}
+  - {fileID: 11400000, guid: 6a7d00cc8f14c794889a5c4b64d46db4, type: 2}
+  - {fileID: 11400000, guid: af273830a3748834a82211835146826a, type: 2}
+  - {fileID: 11400000, guid: 5d575df4e18ccb0469c9cd0f80d0ba46, type: 2}
+  - {fileID: 11400000, guid: e562647decd50c649af65d7adca61b1c, type: 2}
+  - {fileID: 11400000, guid: 1f9ed34688db74643b8e7d6b331bec4e, type: 2}
+  - {fileID: 11400000, guid: fa58157ab03af154f8355ba0ab401890, type: 2}
+  - {fileID: 11400000, guid: d7859a3d2c56d7443bc8d1cb201e6021, type: 2}
+  - {fileID: 11400000, guid: c4a0a2c6019fc464c961cc98c11558dd, type: 2}
+  - {fileID: 11400000, guid: 4fd4f6f036a1ee84e9ad9e048d898834, type: 2}
+  - {fileID: 11400000, guid: 5be49cf50bb85da4587d2be062e27cea, type: 2}
+  - {fileID: 11400000, guid: d42745a6cef4004438360297f7febaf1, type: 2}
+  - {fileID: 11400000, guid: e1bb731c71e779e40b375fa01e58a323, type: 2}
+  - {fileID: 11400000, guid: 1041d60e903271a4dab51c596a3f2c32, type: 2}
+  - {fileID: 11400000, guid: 4541b98f2fac60049b837671b176af3c, type: 2}
+  - {fileID: 11400000, guid: c212e6a544a06594c9a12ecaa0679e05, type: 2}
+  - {fileID: 11400000, guid: 220653274a2726a47a2b1be3a7d057b4, type: 2}
+  - {fileID: 11400000, guid: f58588cab4182cb43b47b24656c9596b, type: 2}
+  - {fileID: 11400000, guid: aac8d9048e360144b8cb843c0040ae58, type: 2}
+  - {fileID: 11400000, guid: 4dcaf05b1191816438a83bfba9cc8163, type: 2}
+  - {fileID: 11400000, guid: 954aa339af752ae46a37d84f9d83b1a0, type: 2}
+  - {fileID: 11400000, guid: 024d7f403ea2368429ef05b0e37eb48b, type: 2}
+  - {fileID: 11400000, guid: 1e5c85b1e0a1f8b468fac3a8569ed710, type: 2}
+  - {fileID: 11400000, guid: f0c85c92d0723464586d0679bbd1c88c, type: 2}
+  - {fileID: 11400000, guid: f5c20608798871d4ea113df8aadec40f, type: 2}
+  - {fileID: 11400000, guid: 98fd79a494220c94fab64531ccadfd99, type: 2}
+  - {fileID: 11400000, guid: f26da0e37606e794fb1e0ec3120af1d0, type: 2}
+  - {fileID: 11400000, guid: 3d73feb712286864ca3cdcdee512ac8f, type: 2}
+  - {fileID: 11400000, guid: 838e74d23be8e1b45ac08482ef4326cd, type: 2}
+  - {fileID: 11400000, guid: 8447b3b02c5a80841acc04f4548ff98d, type: 2}
+  - {fileID: 11400000, guid: 47fc2a0a66518574698bd82137da2765, type: 2}
+  - {fileID: 11400000, guid: 3e863509a0bab50488c03bdb36d76c81, type: 2}
+  - {fileID: 11400000, guid: 56a10b11c2aef7e44ae1f9658b152377, type: 2}
+  - {fileID: 11400000, guid: 3303b14ec686fb849a68d2f3796703c8, type: 2}
+  maxVegetationHexType: {fileID: 11400000, guid: 3328611d744c1374490c127dac9b0cbb, type: 2}

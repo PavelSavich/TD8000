@@ -81,7 +81,7 @@ namespace TD.Cameras
             }
             else
             {
-                Debug.Log("Set Screen Limits to Camera Controller");
+                return;
             }
 
             transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
@@ -93,10 +93,10 @@ namespace TD.Cameras
             newPosition = transformToFocus;
         }
 
-        public void SetScreenLimits(Transform lastHexTransform)
+        public void SetScreenLimits(Vector3 lastHexPos)
         {
             screenLimitsSet = true;
-            maxScreenLimits = lastHexTransform.position;
+            maxScreenLimits = lastHexPos;
         }
     }
 }

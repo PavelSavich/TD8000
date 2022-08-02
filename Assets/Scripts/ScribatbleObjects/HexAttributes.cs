@@ -14,7 +14,7 @@ namespace TD.Map
         [Range(0,1)][SerializeField] private float typeElevation = 0f;
 
         [Header("Vegetation")]
-        [SerializeField] List<TreeAttributes> treesGrowOnHexType = new List<TreeAttributes>();
+        [SerializeField] List<SpawnableAttributes> treesGrowOnHexType = new List<SpawnableAttributes>();
 
         public HexType GetHexType()
         {
@@ -31,7 +31,7 @@ namespace TD.Map
             return typeElevation;
         }
 
-        public TreeAttributes GetRandomTreeType()
+        public SpawnableAttributes GetRandomTreeType()
         {
             return treesGrowOnHexType[Random.Range(0,treesGrowOnHexType.Count)];
         }

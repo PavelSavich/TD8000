@@ -32,9 +32,9 @@ namespace TD.Cameras
             MoveCamera();
         }
 
-        public void SetMapSize(Transform lastHexTransform)
+        public void SetMapSize(Vector3 lastHexPos)
         {
-            mapSize = lastHexTransform.position;
+            mapSize = lastHexPos;
         }
 
         private void MoveCamera()

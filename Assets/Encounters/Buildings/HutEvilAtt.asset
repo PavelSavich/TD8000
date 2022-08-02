@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22519bd0d5ce40c4098aac898d190e76, type: 3}
+  m_Name: HutEvilAtt
+  m_EditorClassIdentifier: 
+  primarySprite: {fileID: -726960529662533263, guid: b3b1635fa21cd9c45945f9f2f6a501df, type: 3}
+  primaryColor:
+    serializedVersion: 2
+    rgba: 4278194521
+  secondarySprite: {fileID: 0}
+  secondaryColor:
+    serializedVersion: 2
+    rgba: 4284703587
